@@ -63,7 +63,7 @@ body {
   min-height: 100vh;
   width: 100vw;
 
-  background-image: url("https://utemplates.net/wp-content/uploads/2017/07/Download-Realistic-Paper-Grain-Texture.jpg");
+  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMiWY5rpEfDb_-lDdwKp8jV6EpZW__C56nB9q8g0H0frhncG-N6A&s");
   background-color: #cccccc;
   background-repeat: repeat;
   background-position: 0 0;
@@ -93,7 +93,10 @@ body {
 .image-info {
   width: 500px;
   height: 200px;
-  margin-top: 10px;
+  padding: 2px;
+  border: 3px solid gainsboro;
+  border-radius: 15px 50px 800px 5px;
+  margin: 10px;
 }
 
 .format-result {
@@ -108,5 +111,8 @@ body {
 .input-type {
   background-color: gainsboro;
   margin-bottom: 10px;
+  padding: 1px;
+  border: 1px solid #021a40;
+  width: 600px;
 }
 </style>
