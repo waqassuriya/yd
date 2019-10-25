@@ -3,23 +3,23 @@
   <div id="app">
     <h1>Youtube Videos Downloader</h1>
     <form @submit.prevent="submitForm">
-      <input class="input-type" type="text" v-model="url" placeholder="Enter Url Here !!">
+      <input class="input-type" type="text" v-model="url" placeholder="Enter Url Here !!" />
       <button type="submit">Download</button>
     </form>
     <div v-if="results">
       <div class="video-info">
-        <img class="image-info" :src="results.thumbnails[0].url">
+        <img class="image-info" :src="results.thumbnails[0].url" />
         <div>
           <strong>{{ results.title }}</strong>
         </div>
       </div>
-      <br>
+      <br />
       <strong>DOWNLOAD NOW</strong> : (FORMATS AVAILABLE)
       <a
-        class="result-row"
         v-for="result in results.formats"
-        :key="results.id"
+        :key="result.id"
         :href="result.url"
+        class="result-row"
         target="_blank"
       >
         <div class="format-result">{{ result.format }}</div>
@@ -44,10 +44,9 @@ export default {
   methods: {
     async submitForm() {
       // Using https://reqres.in/
-      const response = await axios.get(
-        "https://PossibleHarmfulOutcomes--five-nine.repl.co/download",
-        { params: { url: this.url } }
-      );
+      const response = await axios.get("/download", {
+        params: { url: this.url }
+      });
       this.results = response.data;
     }
   }
