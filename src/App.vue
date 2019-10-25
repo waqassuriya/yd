@@ -1,5 +1,4 @@
 <template>
-<body class="body-a">
   <div id="app">
     <h1>Youtube Videos Downloader</h1>
     <form @submit.prevent="submitForm">
@@ -28,7 +27,6 @@
 
     <!-- <img class="image" :src="url"> -->
   </div>
-</body>
 </template>
 
 <script>
@@ -54,23 +52,21 @@ export default {
 </script>
 
 <style>
+body {
+  margin: 0;
+}
+
 #app {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100%;
-  width: 100%;
-  margin: 0 auto;
-}
+  min-height: 100vh;
+  width: 100vw;
 
-.body-a {
   background-image: url("https://utemplates.net/wp-content/uploads/2017/07/Download-Realistic-Paper-Grain-Texture.jpg");
   background-color: #cccccc;
   background-repeat: repeat;
   background-position: 0 0;
-  background-size: cover;
-  height: 100%;
-  width: 100%;
   display: flex;
 }
 
