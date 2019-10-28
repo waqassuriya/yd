@@ -3,49 +3,65 @@
     <h1>Youtube Videos Downloader</h1>
     <form @submit.prevent="submitForm">
       <input class="input-type" type="text" v-model="url" placeholder="Enter Url Here !!" />
-      <button type="submit">Download</button>
-    </form>
-    <div v-if="results">
-      <div class="video-info">
-        <img class="image-info" :src="results.thumbnails[0].url" />
-        <div>
-          <strong>{{ results.title }}</strong>
-        </div>
-      </div>
-      <br />
-      <strong>DOWNLOAD NOW</strong> : (FORMATS AVAILABLE)
-      <a
-        v-for="result in results.formats"
-        :key="result.id"
-        :href="result.url"
-        class="result-row"
-        target="_blank"
-      >
-        <div class="format-result">{{ result.format }}</div>
-      </a>
-    </div>
+      <!-- <button type="submit">Download</button> -->
 
+      <vue-button-spinner :is-loading="isLoading" :disabled="isLoading" :status="status">
+        <span>Download</span>
+      </vue-button-spinner>
+    </form>
+    <!-- 
+    <vue-button-spinner />-->
+    <div v-if="isLoading==false">
+      <div v-if="results">
+        <div class="video-info">
+          <img class="image-info" :src="results.thumbnails[0].url" />
+          <div>
+            <strong>{{ results.title }}</strong>
+          </div>
+        </div>
+        <br />
+        <strong>DOWNLOAD NOW</strong> : (FORMATS AVAILABLE)
+        <a
+          v-for="result in results.formats"
+          :key="result.id"
+          :href="result.url"
+          class="result-row"
+          target="_blank"
+        >
+          <div class="format-result">{{ result.format }}</div>
+        </a>
+      </div>
+    </div>
     <!-- <img class="image" :src="url"> -->
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import VueButtonSpinner from "vue-button-spinner";
+
 export default {
   name: "App",
   data() {
     return {
       url: "",
-      results: null
+      results: null,
+      isLoading: false,
+      status: ""
     };
+  },
+  components: {
+    VueButtonSpinner
   },
   methods: {
     async submitForm() {
-      // Using https://reqres.in/
+      this.isLoading = true;
       const response = await axios.get("/download", {
         params: { url: this.url }
       });
       this.results = response.data;
+      this.isLoading = false;
+      this.status = true;
     }
   }
 };
@@ -114,5 +130,6 @@ body {
   padding: 1px;
   border: 1px solid #021a40;
   width: 600px;
+  height: 32px;
 }
 </style>
