@@ -11,6 +11,7 @@
     </form>
     <!-- 
     <vue-button-spinner />-->
+    <div v-if="error">{{error}}</div>
     <div v-if="isLoading==false">
       <div v-if="results">
         <div class="video-info">
@@ -47,7 +48,8 @@ export default {
       url: "",
       results: null,
       isLoading: false,
-      status: ""
+      status: "",
+      error: false
     };
   },
   components: {
@@ -55,13 +57,28 @@ export default {
   },
   methods: {
     async submitForm() {
+      this.error = false;
+      this.results = null;
+      if (!this.url.includes("youtube.com")) {
+        this.error = "This Operation Failed";
+
+        return;
+      }
+
       this.isLoading = true;
-      const response = await axios.get("/download", {
-        params: { url: this.url }
-      });
-      this.results = response.data;
+      try {
+        const response = await axios.get("/download", {
+          params: { url: this.url }
+        });
+        this.results = response.data;
+        this.status = true;
+      } catch (error) {
+        console.log(error);
+        this.results = null;
+        this.status = false;
+        this.error = "Try Again";
+      }
       this.isLoading = false;
-      this.status = true;
     }
   }
 };
